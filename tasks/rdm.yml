@@ -1,0 +1,28 @@
+# file: tasks/rtags_systemd.yml
+
+- name: RDM | make dir for rdm daemon
+  sudo: true
+  file: path=/etc/rdm state=directory mode=0755
+  when: rtags_downloaded.changed
+
+- name: RDM | make /var/log/rdm
+  sudo: true
+  file: path=/var/log/rdm state=directory mode=0755
+  when: rtags_downloaded.changed
+
+- name: RDM | Add rdm.socket
+  sudo: true
+  action: template src=rdm.socket-template.j2
+          dest=/etc/systemd/system/rdm.socket
+  when: rtags_downloaded.changed
+
+- name: RDM | Add rdm.service
+  sudo: true
+  action: template src=rdm.service-template.j2
+          dest=/etc/systemd/system/rdm.service
+  when: rtags_downloaded.changed
+
+- name: RDM | Start rtagd
+  sudo: true
+  service: name=rdm state=started enabled=yes
+  when: rtags_downloaded.changed

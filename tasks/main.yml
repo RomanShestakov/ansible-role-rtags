@@ -1,4 +1,5 @@
 # file: ansible-role-rtags/tasks/main.yml
 
 - include: 'rtags_install.yml'
+- include: 'bear_install.yml'
 - include: 'rdm.yml'

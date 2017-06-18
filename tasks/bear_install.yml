@@ -1,0 +1,24 @@
+# file: ansible-role-rtags/tasks/bear_install.yml
+
+- name: BEAR | get from git repository
+  git: repo="{{ bear_repo_url }}"
+       dest="{{ bear_tmp }}"
+       version="{{ bear_version }}"
+  register: bear_downloaded
+
+- name: BEAR | Create build directory
+  file:
+    path: "{{ bear_build_dir }}"
+    state: directory
+
+- name: BEAR | run cmake
+  command: cmake {{ bear_tmp }} chdir="{{ bear_build_dir }}"
+  when: bear_downloaded.changed
+
+- name: BEAR | make
+  command: make chdir="{{ bear_build_dir }}"
+  when: bear_downloaded.changed
+
+- name: BEAR | make install
+  command: make install chdir="{{ bear_build_dir }}"
+  when: bear_downloaded.changed

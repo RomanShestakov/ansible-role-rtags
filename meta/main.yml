@@ -1,0 +1,17 @@
+# file: ansible-role-rtags/meta/main.yml
+
+galaxy_info:
+  author: ros
+  company: ANXS
+  description: Install rtags
+  min_ansible_version: 0.1
+  license: MIT
+  platforms:
+  - name: Centos
+    versions:
+    - all
+  categories:
+  - system
+
+dependencies:
+  - {role: RomanShestakov.ansible-role-gcc, tags: build-essential }

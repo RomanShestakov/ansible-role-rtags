@@ -1,0 +1,6 @@
+# file: ansible-role-rtags/defaults/main.yml
+
+rtags_repo_url: https://github.com/Andersbakken/rtags.git
+rtags_version: "v2.10"
+rtags_tmp: "/tmp/rtags"
+rtags_build_dir: /tmp/rtags_build_dir

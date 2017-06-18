@@ -1,0 +1,20 @@
+# file: ansible-role-rtags/tasks/main.yml
+
+- name: RTAGS | get from git repository
+  git: repo="{{ rtags_repo_url }}"
+       dest="{{ rtags_tmp }}"
+       version="{{ rtags_version }}"
+  register: rtags_downloaded
+
+- name: RTAGS | Create build directory
+  file:
+    path: "{{ rtags_build_dir }}"
+    state: directory
+
+- name: RTAGS | run cmake
+  command: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 {{ rtags_tmp }} chdir="{{ rtags_build_dir }}"
+  when: rtags_downloaded.changed
+
+- name: RTAGS | make
+  command: make chdir="{{ rtags_build_dir }}"
+  when: rtags_downloaded.changed

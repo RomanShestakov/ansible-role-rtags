@@ -4,3 +4,7 @@ rtags_repo_url: https://github.com/Andersbakken/rtags.git
 rtags_version: "v2.10"
 rtags_tmp: "/tmp/rtags"
 rtags_build_dir: /tmp/rtags_build_dir
+bear_repo_url: https://github.com/rizsotto/Bear.git
+bear_version: 2.3.5
+bear_tmp: "/tmp/bear"
+bear_build_dir: /tmp/bear_build_dir

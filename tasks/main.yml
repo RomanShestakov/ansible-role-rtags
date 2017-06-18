@@ -18,3 +18,7 @@
 - name: RTAGS | make
   command: make chdir="{{ rtags_build_dir }}"
   when: rtags_downloaded.changed
+
+- name: RTAGS | make install
+  command: make install chdir="{{ rtags_build_dir }}"
+  when: rtags_downloaded.changed

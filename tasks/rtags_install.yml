@@ -12,13 +12,13 @@
     state: directory
 
 - name: RTAGS | run cmake
-  command: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 {{ rtags_tmp }} chdir="{{ rtags_build_dir }}"
-  when: rtags_downloaded.changed
+  command: chdir="{{ rtags_build_dir }}" cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} {{ rtags_tmp }}
+  # when: rtags_downloaded.changed
 
 - name: RTAGS | make
-  command: make chdir="{{ rtags_build_dir }}"
-  when: rtags_downloaded.changed
+  command: chdir="{{ rtags_build_dir }}" make
+  # when: rtags_downloaded.changed
 
 - name: RTAGS | make install
-  command: make install chdir="{{ rtags_build_dir }}"
-  when: rtags_downloaded.changed
+  command: chdir="{{ rtags_build_dir }}" make install
+  # when: rtags_downloaded.changed

@@ -12,13 +12,13 @@
     state: directory
 
 - name: BEAR | run cmake
-  command: cmake {{ bear_tmp }} chdir="{{ bear_build_dir }}"
-  when: bear_downloaded.changed
+  command: chdir="{{ bear_build_dir }}" cmake -DCMAKE_INSTALL_PREFIX={{bear_install_dir}} {{ bear_tmp }}
+  # when: bear_downloaded.changed
 
 - name: BEAR | make
-  command: make chdir="{{ bear_build_dir }}"
-  when: bear_downloaded.changed
+  command: chdir="{{ bear_build_dir }}" make
+  # when: bear_downloaded.changed
 
 - name: BEAR | make install
-  command: make install chdir="{{ bear_build_dir }}"
-  when: bear_downloaded.changed
+  command: chdir="{{ bear_build_dir }}" make install
+  # when: bear_downloaded.changed

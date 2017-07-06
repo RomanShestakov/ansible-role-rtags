@@ -11,3 +11,4 @@ bear_tmp: "/tmp/bear"
 bear_build_dir: /tmp/bear_build_dir
 bear_install_dir: /opt/bear-"{{bear_version}}"
 llvm_config: "/opt/llvm-4.0/bin/llvm-config"
+gcc_install_dir: "/opt/gcc-6.3.0"

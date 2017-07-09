@@ -16,11 +16,12 @@
 - name: RTAGS | run cmake
   become: true
   command: chdir="{{ rtags_build_dir }}" cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
-           -DCMAKE_C_COMPILER=clang \
-           -DCMAKE_CXX_COMPILER=clang++ \
+           -DCMAKE_C_COMPILER={{llvm_install_dir}}/bin/clang \
+           -DCMAKE_CXX_COMPILER={{llvm_install_dir}}/bin/clang++ \
            -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} \
            -DGCC_INSTALL_PREFIX={{gcc_install_dir}} \
-           -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_config}} {{ rtags_tmp }}
+           -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm_config \
+           {{ rtags_tmp }}
   # when: rtags_downloaded.changed
 
 - name: RTAGS | make

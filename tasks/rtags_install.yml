@@ -20,7 +20,7 @@
            -DCMAKE_CXX_COMPILER={{llvm_install_dir}}/bin/clang++ \
            -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} \
            -DGCC_INSTALL_PREFIX={{gcc_install_dir}} \
-           -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm_config \
+           -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm-config \
            {{ rtags_tmp }}
   # when: rtags_downloaded.changed
 

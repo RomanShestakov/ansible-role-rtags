@@ -10,6 +10,13 @@
   file: path=/var/log/rdm state=directory mode=0755
   when: rtags_downloaded.changed
 
+- name: RDM | Add Wrapper
+  sudo: true
+  action: template src=rdm.sh-template.j2
+          dest={{rtags_install_dir}}/bin/rdm.sh
+          mode=0775
+  when: rtags_downloaded.changed
+
 - name: RDM | Add rdm.socket
   sudo: true
   action: template src=rdm.socket-template.j2

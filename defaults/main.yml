@@ -5,6 +5,7 @@ rtags_version: v2.10
 rtags_tmp: "/tmp/rtags"
 rtags_build_dir: /tmp/rtags_build_dir
 rtags_install_dir: "/opt/rtags-{{rtags_version}}"
+rtags_user_dir: "/home/{{user}}/.config/systemd/user/"
 bear_repo_url: https://github.com/rizsotto/Bear.git
 bear_version: 2.3.5
 bear_tmp: "/tmp/bear"

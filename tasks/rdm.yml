@@ -10,6 +10,11 @@
   file: path=/var/log/rdm state=directory mode=0755
   when: rtags_downloaded.changed
 
+- name: RDM | make ~/.config
+  sudo: true
+  file: path="{{rtags_user_dir}}" state=directory mode=0755
+  when: rtags_downloaded.changed
+
 - name: RDM | Add Wrapper
   sudo: true
   action: template src=rdm.sh-template.j2
@@ -18,18 +23,18 @@
   when: rtags_downloaded.changed
 
 - name: RDM | Add rdm.socket
-  sudo: true
+  # sudo: true
   action: template src=rdm.socket-template.j2
-          dest=/etc/systemd/system/rdm.socket
+          dest="{{rtags_user_dir}}/rdm.socket"
   when: rtags_downloaded.changed
 
 - name: RDM | Add rdm.service
-  sudo: true
+  # sudo: true
   action: template src=rdm.service-template.j2
-          dest=/etc/systemd/system/rdm.service
+          dest="{{rtags_user_dir}}/rdm.service"
   when: rtags_downloaded.changed
 
 - name: RDM | Start rtagd
-  sudo: true
+  # sudo: true
   service: name=rdm state=started enabled=yes
   when: rtags_downloaded.changed

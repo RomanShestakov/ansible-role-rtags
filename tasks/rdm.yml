@@ -13,7 +13,7 @@
 - name: RDM | Add Wrapper
   sudo: true
   action: template src=rdm.sh-template.j2
-          dest={{rtags_install_dir}}/bin/rdm.sh
+          dest="{{rtags_install_dir}}/bin/rdm.sh"
           mode=0775
   when: rtags_downloaded.changed
 

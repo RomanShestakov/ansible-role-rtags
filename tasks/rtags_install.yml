@@ -34,8 +34,8 @@
   command: chdir="{{ rtags_build_dir }}" make install
   # when: rtags_downloaded.changed
 
-- name: RTAGS | rename rc to rc.exe
-  command: mv "{{ rtags_build_dir }}/bin/rc" "{{ rtags_build_dir }}/bin/rc.exe"
+- name: RTAGS | Rename rc to rc.exe
+  command: chdir="{{ rtags_build_dir }}/bin" mv rc rc.exe
   # when: rtags_downloaded.changed
 
 - name: RDM | Add Wrapper

@@ -1,40 +1,40 @@
 # file: tasks/rtags_systemd.yml
 
-- name: RDM | make dir for rdm daemon
-  sudo: true
-  file: path=/etc/rdm state=directory mode=0755
-  when: rtags_downloaded.changed
+# - name: RDM | make dir for rdm daemon
+#   sudo: true
+#   file: path=/etc/rdm state=directory mode=0755
+#   when: rtags_downloaded.changed
 
-- name: RDM | make /var/log/rdm
-  sudo: true
-  file: path=/var/log/rdm state=directory mode=0755
-  when: rtags_downloaded.changed
-
-- name: RDM | make ~/.config
-  sudo: true
-  file: path="{{ ansible_env.HOME }}/.config/systemd/user/" state=directory mode=0755
-  when: rtags_downloaded.changed
+# - name: RDM | make /var/log/rdm
+#   sudo: true
+#   file: path=/var/log/rdm state=directory mode=0755
+#   when: rtags_downloaded.changed
 
 - name: RDM | Add Wrapper
-  sudo: true
+  become: true
   action: template src=rdm.sh-template.j2
           dest="{{rtags_install_dir}}/bin/rdm.sh"
           mode=0775
   when: rtags_downloaded.changed
 
+- name: RDM | make ~/.config
+  become: false
+  file: path="{{ ansible_env.HOME }}/.config/systemd/user/" state=directory mode=0755
+  when: rtags_downloaded.changed
+
 - name: RDM | Add rdm.socket
-  # sudo: true
+  become: false
   action: template src=rdm.socket-template.j2
           dest="{{ ansible_env.HOME }}/.config/systemd/user/rdm.socket"
   when: rtags_downloaded.changed
 
 - name: RDM | Add rdm.service
-  # sudo: true
+  become: false
   action: template src=rdm.service-template.j2
           dest="{{ ansible_env.HOME }}/.config/systemd/user/rdm.service"
   when: rtags_downloaded.changed
 
 - name: RDM | Start rtagd
-  # sudo: true
+  become: false
   service: name=rdm state=started enabled=yes
   when: rtags_downloaded.changed

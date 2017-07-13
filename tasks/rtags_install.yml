@@ -35,7 +35,6 @@
   # when: rtags_downloaded.changed
 
 - name: RTAGS | rename rc to rc.exe
-  become: true
   command: creates="{{ rtags_build_dir }}/bin/rc.exe" mv "{{ rtags_build_dir }}/bin/rc" "{{ rtags_build_dir }}/bin/rc.exe"
   # when: rtags_downloaded.changed
 

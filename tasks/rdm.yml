@@ -18,7 +18,8 @@
   when: rtags_downloaded.changed
 
 - name: RDM | make ~/.config
-  become: false
+  become: yes
+  become_user: vagrant
   file: path="{{ ansible_env.HOME }}/.config/systemd/user/" state=directory mode=0755
   when: rtags_downloaded.changed
 

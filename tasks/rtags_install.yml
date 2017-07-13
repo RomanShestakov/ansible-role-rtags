@@ -33,3 +33,22 @@
   become: true
   command: chdir="{{ rtags_build_dir }}" make install
   # when: rtags_downloaded.changed
+
+- name: RTAGS | rename rc to rc.exe
+  become: true
+  command: creates="{{ rtags_build_dir }}/bin/rc.exe" mv "{{ rtags_build_dir }}/bin/rc" "{{ rtags_build_dir }}/bin/rc.exe"
+  # when: rtags_downloaded.changed
+
+- name: RDM | Add Wrapper
+  become: true
+  action: template src=rdm.sh-template.j2
+          dest="{{rtags_install_dir}}/bin/rdm.sh"
+          mode=0775
+  # when: rtags_downloaded.changed
+
+- name: RDM | Add rc wrapper
+  become: true
+  action: template src=rc-template.j2
+          dest="{{rtags_install_dir}}/bin/rc"
+          mode=0775
+  # when: rtags_downloaded.changed

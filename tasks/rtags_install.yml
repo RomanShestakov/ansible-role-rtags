@@ -35,7 +35,7 @@
   # when: rtags_downloaded.changed
 
 - name: RTAGS | Rename rc to rc.exe
-  command: chdir="{{ rtags_build_dir }}/bin" mv rc rc.exe
+  command: chdir="{{ rtags_build_dir }}/bin" mv rc rce
   # when: rtags_downloaded.changed
 
 - name: RDM | Add Wrapper

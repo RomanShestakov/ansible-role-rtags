@@ -18,21 +18,23 @@
   when: rtags_downloaded.changed
 
 - name: RDM | make ~/.config
-  become: yes
+  become: true
   become_user: vagrant
-  file: path="{{ ansible_env.HOME }}/.config/systemd/user/" state=directory mode=0755
+  file: path="/home/vagrant/.config/systemd/user/" state=directory mode=0755
   when: rtags_downloaded.changed
 
 - name: RDM | Add rdm.socket
-  become: false
+  become: true
+  become_user: vagrant
   action: template src=rdm.socket-template.j2
-          dest="{{ ansible_env.HOME }}/.config/systemd/user/rdm.socket"
+          dest="/home/vagrant/.config/systemd/user/rdm.socket"
   when: rtags_downloaded.changed
 
 - name: RDM | Add rdm.service
-  become: false
+  become: true
+  become_user: vagrant
   action: template src=rdm.service-template.j2
-          dest="{{ ansible_env.HOME }}/.config/systemd/user/rdm.service"
+          dest="/home/vagrant/.config/systemd/user/rdm.service"
   when: rtags_downloaded.changed
 
 - name: RDM | Start rtagd

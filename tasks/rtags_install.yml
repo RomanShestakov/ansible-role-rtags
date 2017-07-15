@@ -20,6 +20,7 @@
            -DCMAKE_CXX_COMPILER={{llvm_install_dir}}/bin/clang++ \
            -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} \
            -DGCC_INSTALL_PREFIX={{gcc_install_dir}} \
+           -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE \
            -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm-config \
            {{ rtags_tmp }}
   # when: rtags_downloaded.changed
@@ -34,20 +35,20 @@
   command: chdir="{{ rtags_build_dir }}" make install
   # when: rtags_downloaded.changed
 
-- name: RTAGS | Rename rc to rc.exe
-  command: chdir="{{ rtags_build_dir }}/bin" mv rc rce
-  # when: rtags_downloaded.changed
+# - name: RTAGS | Rename rc to rc.exe
+#   command: chdir="{{ rtags_build_dir }}/bin" mv rc rce
+#   # when: rtags_downloaded.changed
 
-- name: RDM | Add Wrapper
-  become: true
-  action: template src=rdm.sh-template.j2
-          dest="{{rtags_install_dir}}/bin/rdm.sh"
-          mode=0775
-  # when: rtags_downloaded.changed
+# - name: RDM | Add Wrapper
+#   become: true
+#   action: template src=rdm.sh-template.j2
+#           dest="{{rtags_install_dir}}/bin/rdm.sh"
+#           mode=0775
+#   # when: rtags_downloaded.changed
 
-- name: RDM | Add rc wrapper
-  become: true
-  action: template src=rc-template.j2
-          dest="{{rtags_install_dir}}/bin/rc"
-          mode=0775
-  # when: rtags_downloaded.changed
+# - name: RDM | Add rc wrapper
+#   become: true
+#   action: template src=rc-template.j2
+#           dest="{{rtags_install_dir}}/bin/rc"
+#           mode=0775
+#   # when: rtags_downloaded.changed

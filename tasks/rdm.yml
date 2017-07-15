@@ -37,7 +37,7 @@
           dest="/home/vagrant/.config/systemd/user/rdm.service"
   when: rtags_downloaded.changed
 
-- name: RDM | Start rtagd
-  become: false
-  service: name=rdm state=started enabled=yes
-  when: rtags_downloaded.changed
+# - name: RDM | Start rtagd
+#   become: false
+#   service: name=rdm state=started enabled=yes
+#   when: rtags_downloaded.changed

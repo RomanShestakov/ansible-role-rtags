@@ -40,7 +40,7 @@
 - name: RDM | Add to global PATH
   become: true
   action: template src=rdm.sh-template.j2
-          dest=/etc/profile.d/rdm.sh"
+          dest="/etc/profile.d/rdm.sh"
           mode=0775
   when: rtags_downloaded.changed
 

@@ -41,8 +41,7 @@
   become: true
   action: template src=rdm.sh-template.j2
           dest="/etc/profile.d/rdm.sh"
-          mode=0775
-  when: rtags_downloaded.changed
+          mode=0644
 
 # - name: RTAGS | Rename rc to rc.exe
 #   command: chdir="{{ rtags_build_dir }}/bin" mv rc rce

@@ -25,17 +25,17 @@
            -DCMAKE_BUILD_TYPE=Debug \
            -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm-config \
            {{ rtags_tmp }}
-  # when: rtags_downloaded.changed
+  when: rtags_downloaded.changed
 
 - name: RTAGS | make
   become: true
   command: chdir="{{ rtags_build_dir }}" make
-  # when: rtags_downloaded.changed
+  when: rtags_downloaded.changed
 
 - name: RTAGS | make install
   become: true
   command: chdir="{{ rtags_build_dir }}" make install
-  # when: rtags_downloaded.changed
+  when: rtags_downloaded.changed
 
 # - name: RTAGS | Rename rc to rc.exe
 #   command: chdir="{{ rtags_build_dir }}/bin" mv rc rce

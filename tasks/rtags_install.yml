@@ -42,21 +42,3 @@
   action: template src=rdm.sh-template.j2
           dest="/etc/profile.d/rdm.sh"
           mode=0644
-
-# - name: RTAGS | Rename rc to rc.exe
-#   command: chdir="{{ rtags_build_dir }}/bin" mv rc rce
-#   # when: rtags_downloaded.changed
-
-# - name: RDM | Add Wrapper
-#   become: true
-#   action: template src=rdm.sh-template.j2
-#           dest="{{rtags_install_dir}}/bin/rdm.sh"
-#           mode=0775
-#   # when: rtags_downloaded.changed
-
-# - name: RDM | Add rc wrapper
-#   become: true
-#   action: template src=rc-template.j2
-#           dest="{{rtags_install_dir}}/bin/rc"
-#           mode=0775
-#   # when: rtags_downloaded.changed

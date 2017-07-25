@@ -2,4 +2,3 @@
 
 - include: 'rtags_install.yml'
 - include: 'bear_install.yml'
-- include: 'rdm.yml'

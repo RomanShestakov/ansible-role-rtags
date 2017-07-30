@@ -22,3 +22,9 @@
 - name: BEAR | make install
   command: chdir="{{ bear_build_dir }}" make install
   # when: bear_downloaded.changed
+
+- name: BEAR | Add to global PATH
+  become: true
+  action: template src=bear.sh-template.j2
+          dest="/etc/profile.d/bear.sh"
+          mode=0644

@@ -18,12 +18,14 @@
   command: chdir="{{ rtags_build_dir }}" cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
            -DCMAKE_C_COMPILER={{llvm_install_dir}}/bin/clang \
            -DCMAKE_CXX_COMPILER={{llvm_install_dir}}/bin/clang++ \
+           -DLIBCLANG_LIBRARY={{llvm_install_dir}}/lib/libclang.so \
+           -DLIBCLANG_INCLUDE_DIR={{llvm_install_dir}}/include \
            -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} \
            -DGCC_INSTALL_PREFIX={{gcc_install_dir}} \
            -DCMAKE_INSTALL_RPATH={{llvm_install_dir}}/lib \
            -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE \
            -DFORCE_BASH_COMPLETION_INSTALLATION=TRUE \
-           -DCMAKE_BUILD_TYPE=Debug \
+           -DCMAKE_BUILD_TYPE=Release \
            -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm-config \
            {{ rtags_tmp }}
   when: rtags_downloaded.changed

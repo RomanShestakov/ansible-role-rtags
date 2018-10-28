@@ -3,7 +3,7 @@
 - name: RTAGS | get from git repository
   become: true
   git: repo="{{ rtags_repo_url }}"
-       dest="{{ rtags_tmp }}/{{ rtags_version }}"
+       dest="{{ rtags_tmp }}_{{ rtags_version }}"
        version="{{ rtags_version }}"
   register: rtags_downloaded
 
@@ -28,7 +28,7 @@
            -DCMAKE_BUILD_TYPE=Release \
            -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm-config \
            -D_GLIBCXX_USE_CXX11_ABI=1
-           {{ rtags_tmp }}/{{ rtags_version }}
+           {{ rtags_tmp }}_{{ rtags_version }}
   when: rtags_downloaded.changed
 
 - name: RTAGS | make

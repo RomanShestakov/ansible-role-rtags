@@ -20,6 +20,8 @@
            -DCMAKE_CXX_COMPILER={{llvm_install_dir}}/bin/clang++ \
            -DLIBCLANG_LIBRARY={{llvm_install_dir}}/lib/libclang.so \
            -DLIBCLANG_INCLUDE_DIR={{llvm_install_dir}}/include \
+           -DCMAKE_CXX_LINK_FLAGS="-L{{gcc_install_dir}}/lib64 -Wl,-rpath,{{gcc_install_dir}}/lib64" \
+           -DCMAKE_INSTALL_RPATH="{{gcc_install_dir}}/lib64" \
            -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} \
            -DGCC_INSTALL_PREFIX={{gcc_install_dir}} \
            -DCMAKE_INSTALL_RPATH={{llvm_install_dir}}/lib \
@@ -28,7 +30,14 @@
            -DCMAKE_BUILD_TYPE=Release \
            -DLIBCLANG_LLVM_CONFIG_EXECUTABLE={{llvm_install_dir}}/bin/llvm-config \
            -D_GLIBCXX_USE_CXX11_ABI=1
-           "{{ rtags_tmp }}_{{ rtags_version }}"
+           "{{ rtags_tmp }}_{{ rtags_version }}
+  when: rtags_downloaded.changed
+
+- name: RTAGS | create install path
+  become: true
+  file:
+    path: "{{ rtags_install_dir }}/share/emacs/site-lisp/"
+    state: directory
   when: rtags_downloaded.changed
 
 - name: RTAGS | make
@@ -40,6 +49,16 @@
   become: true
   command: chdir="{{ rtags_build_dir }}" make install
   when: rtags_downloaded.changed
+
+- name: RTAGS | get lisp that needs to be installed
+  shell: find {{ rtags_tmp/src }} -name "*.el" -print
+  register: rtags_lisp_names
+  when: rtags_downloaded.changed
+
+- name: RTAGS | install lisp files
+  command: cp {{ item }} "{{ rtags_install_dir }}/share/emacs/site-lisp/"
+  with_items: "{{ rtags_lisp_names.stdout_lines }}"
+  when: rtags_lisp_names
 
 - name: RDM | Add to global PATH and set RTAGS_ROOT env var
   become: true

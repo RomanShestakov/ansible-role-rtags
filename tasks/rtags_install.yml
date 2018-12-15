@@ -49,16 +49,6 @@
   command: chdir="{{ rtags_build_dir }}" make install
   when: rtags_downloaded.changed
 
-- name: RTAGS | get lisp that needs to be installed
-  shell: find {{ rtags_tmp }}_{{ rtags_version }}/src -name "*.el" -print
-  register: rtags_lisp_names
-  when: rtags_downloaded.changed
-
-- name: RTAGS | install lisp files
-  command: cp {{ item }} "{{ rtags_install_dir }}/share/emacs/site-lisp/"
-  with_items: "{{ rtags_lisp_names.stdout_lines }}"
-  when: rtags_lisp_names
-
 - name: RDM | Add to global PATH and set RTAGS_ROOT env var
   become: true
   action: template src=rdm.sh-template.j2

@@ -50,7 +50,7 @@
   when: rtags_downloaded.changed
 
 - name: RTAGS | get lisp that needs to be installed
-  shell: find {{ rtags_tmp }}/src -name "*.el" -print
+  shell: find {{ rtags_tmp }}_{{ rtags_version }}/src -name "*.el" -print
   register: rtags_lisp_names
   when: rtags_downloaded.changed
 

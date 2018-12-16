@@ -26,6 +26,9 @@
            -DLIBCLANG_INCLUDE_DIR={{llvm_install_dir}}/include \
            -DCMAKE_INSTALL_PREFIX={{rtags_install_dir}} \
            -DGCC_INSTALL_PREFIX={{gcc_install_dir}} \
+           -DCMAKE_CXX_LINK_FLAGS="-L{{gcc_install_dir}}/lib64 -Wl,-rpath,{{gcc_install_dir}}/lib64" \
+           -DCMAKE_INSTALL_RPATH="{{gcc_install_dir}}/lib64" \
+           -DCMAKE_INSTALL_RPATH={{llvm_install_dir}}/lib \
            -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE \
            -DFORCE_BASH_COMPLETION_INSTALLATION=TRUE \
            -DCMAKE_BUILD_TYPE=Release \
